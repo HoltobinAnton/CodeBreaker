@@ -1,8 +1,8 @@
-require './spec_helper'
+require '../spec_helper'
 
-describe View do
+describe 'View' do
   before(:each) do
-    @game = Game.new
+    @game = CodeBreakerGemHoltobinAnton::Game.new
     @game.start
   end
 

@@ -1,9 +1,9 @@
-require './spec_helper'
+require '../spec_helper'
 
-describe DataCheck do
-  subject {Object.new.extend(DataCheck)}
+describe 'DataCheck' do
+  subject {Object.new.extend(CodeBreakerGemHoltobinAnton::DataCheck)}
   before(:each) do
-    @game = Game.new
+    @game = CodeBreakerGemHoltobinAnton::Game.new
     @game.start
   end
 
@@ -49,77 +49,41 @@ describe DataCheck do
     end
   end
 
-  context '.check_for_match'
-  it 'responds by marking' do
-    @game.secret_code, @game.user_code, = '1234', '1234'
-    @game.check_for_match
-    expect(@game.result).to eq('++++')
+  context '.responds by marking' do
+    array = [['1234','1234','++++'],
+             ['4444','4444','++++'],
+             ['3331','3332','+++'],
+             ['1113','1112','+++'],
+             ['1312','1212','+++'],
+             ['1234','1266','++'],
+             ['1234','6634','++'],
+             ['1234','1654','++'],
+             ['1234','1555','+'],
+             ['1234','4321','----'],
+             ['5432','2345','----'],
+             ['1234','2143','----'],
+             ['5432','2541','---'],
+             ['1145','6514','---'],
+             ['1244','4156','--'],
+             ['2244','4526','--'],
+             ['5556','1115','-'],
+             ['1234','6653','-'],
+             ['3331','1253','--'],
+             ['1243','1234','++--'],
+             ['4111','4444','+'],
+             ['1532','5132','++--'],
+             ['3444','4334','+--'],
+             ['1113','2155','+'],
+             ['2245','4125','+--'],
+             ['4611','1466','---'],
+             ['5451','4445','+-'],
+             ['1221','2112','--'],
+    ]
+    array.each do |item|
+      it "responds by marking #{item[0]} to #{item[1]}" do
+        @game.check_for_match(item[0],item[1])
+        expect(@game.result).to eq(item[2])
+      end
+    end
   end
-
-  it 'responds by marking' do
-    @game.secret_code, @game.user_code, = '1111', '1111'
-    @game.check_for_match
-    expect(@game.result).to eq('++++')
-  end
-
-  it 'responds by marking' do
-    @game.secret_code, @game.user_code, = '1234', '1235'
-    @game.check_for_match
-    expect(@game.result).to eq('+++')
-  end
-
-  it 'responds by marking' do
-    @game.secret_code, @game.user_code, = '6123', '6523'
-    @game.check_for_match
-    expect(@game.result).to eq('+++')
-  end
-
-  it 'responds by marking' do
-    @game.secret_code, @game.user_code, = '1234', '5555'
-    @game.check_for_match
-    expect(@game.result).to eq('')
-  end
-
-  it 'responds by marking' do
-    @game.secret_code, @game.user_code, = '1234', '4321'
-    @game.check_for_match
-    expect(@game.result).to eq('----')
-  end
-
-  it 'responds by marking' do
-    @game.secret_code, @game.user_code, = '1234', '2134'
-    @game.check_for_match
-    expect(@game.result).to eq('++--')
-  end
-
-  it 'responds by marking' do
-    @game.secret_code, @game.user_code, = '1266', '1652'
-    @game.check_for_match
-    expect(@game.result).to eq('+---')
-  end
-
-  it 'responds by marking' do
-    @game.secret_code, @game.user_code, = '1266', '5512'
-    @game.check_for_match
-    expect(@game.result).to eq('--')
-  end
-
-  it 'responds by marking' do
-    @game.secret_code, @game.user_code, = '1234', '5551'
-    @game.check_for_match
-    expect(@game.result).to eq('-')
-  end
-
-  it 'responds by marking' do
-    @game.secret_code, @game.user_code, = '1234', '1536'
-    @game.check_for_match
-    expect(@game.result).to eq('++')
-  end
-
-  it 'responds by marking' do
-    @game.secret_code, @game.user_code, = '1234', '5255'
-    @game.check_for_match
-    expect(@game.result).to eq('+')
-  end
-
 end
