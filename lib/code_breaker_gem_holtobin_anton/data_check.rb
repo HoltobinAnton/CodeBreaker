@@ -20,16 +20,14 @@ module CodeBreakerGemHoltobinAnton
         if item == user_temp[index - plus_count]
           secr_temp[index - plus_count], user_temp[index - plus_count], = '', ''
           plus_count += 1
+          @result << '+'
         end
       end
-
-      minus_count = (secr_temp.chars & user_temp.chars).size
-      result_add_plus_minus(plus_count,minus_count)
-    end
-
-    def result_add_plus_minus(plus, minus)
-      plus.times { @result << '+'}
-      minus.times { @result << '-'}
+      secr_temp.each_char do |item|
+        next unless  user_temp.include?(item)
+          user_temp[user_temp.index(item)] = ''
+          @result << '-'
+      end
     end
   end
 end
